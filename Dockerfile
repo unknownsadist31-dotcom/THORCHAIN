@@ -22,7 +22,9 @@ RUN npm install --include=dev --legacy-peer-deps --ignore-scripts
 # Copy application source code
 COPY . .
 
-# Build application
+# Build application with increased memory headroom and disabled telemetry
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN npm run build
 
 # Remove development dependencies to keep the image slim
