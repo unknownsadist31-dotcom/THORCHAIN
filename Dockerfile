@@ -8,20 +8,16 @@ LABEL fly_launch_runtime="Next.js"
 # Next.js app directory
 WORKDIR /app
 
-# Set production environment
-ENV NODE_ENV="production"
-ENV NEXT_TELEMETRY_DISABLED=1
-
-# Throw-away build stage to reduce size of final image
+# Throw-away build stage to build the Next.js app
 FROM base AS build
 
 # Install packages needed for build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3 curl ca-certificates
 
-# Install dependencies with legacy peer deps and ignore non-essential post-install scripts
+# Ensure dev dependencies (TypeScript, PostCSS Tailwind, types) are installed for building
 COPY package.json package-lock.json* ./
-RUN npm install --legacy-peer-deps --ignore-scripts
+RUN npm install --include=dev --legacy-peer-deps --ignore-scripts
 
 # Copy application source code
 COPY . .
@@ -29,11 +25,15 @@ COPY . .
 # Build application
 RUN npm run build
 
-# Remove development dependencies
+# Remove development dependencies to keep the image slim
 RUN npm prune --omit=dev --legacy-peer-deps --ignore-scripts
 
 # Final stage for app image
 FROM base
+
+# Set production environment for runtime
+ENV NODE_ENV="production"
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Copy built application and node modules
 COPY --from=build /app /app

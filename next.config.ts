@@ -1,3 +1,4 @@
+import path from 'path'
 import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
 const SUBDOMAIN_ROUTES = [
@@ -94,6 +95,10 @@ const nextConfig: NextConfig = {
     }
   },
   webpack: (config, { webpack, isServer }) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(process.cwd(), 'src'),
+    }
     config.plugins.push(
       new webpack.NormalModuleReplacementPlugin(/^node:/, (resource: { request: string }) => {
         resource.request = resource.request.replace(/^node:/, '')
