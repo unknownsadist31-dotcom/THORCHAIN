@@ -28,10 +28,13 @@ function fixHtml(filePath) {
     html = html.replace('</head>', `${styleFix}</head>`);
   }
 
-  // 3. Fix CDN URLs
-  html = html.replaceAll('/cdn.sanity.io', 'https://cdn.sanity.io');
-  html = html.replaceAll('https:https://cdn.sanity.io', 'https://cdn.sanity.io');
-  html = html.replaceAll('https://https://cdn.sanity.io', 'https://cdn.sanity.io');
+  // 3. Fix and sanitize all CDN URLs cleanly
+  html = html.replace(/(?:\/+https?:?)+\/+cdn\.sanity\.io/gi, 'https://cdn.sanity.io');
+  html = html.replace(/(?:https?:?\/*)+cdn\.sanity\.io/gi, 'https://cdn.sanity.io');
+  html = html.replace(/\/+cdn\.sanity\.io/gi, 'https://cdn.sanity.io');
+  html = html.replace(/\/+https?:\/+(?!\/)/gi, 'https://');
+  html = html.replace(/(?:https?:\/\/)+https?:\/\//gi, 'https://');
+
 
   // 4. Make all lazy loaded images visible and assign src from data-src
   html = html.replace(/<img([^>]*?)>/g, (match, attrs) => {
