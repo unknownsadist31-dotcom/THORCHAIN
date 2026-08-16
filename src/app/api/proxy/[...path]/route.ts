@@ -8,10 +8,15 @@ const PROXY_TARGETS: Record<string, string> = {
   thorchain: 'https://api.thorchain.org',
   'lq-thornode': 'https://gateway.liquify.com/chain/thorchain_api',
   'lq-midgard': 'https://gateway.liquify.com/chain/thorchain_midgard',
+  midgard: 'https://midgard.ninerealms.com',
+  thornode: 'https://thornode.ninerealms.com',
+  sanity: 'https://355nlzcp.api.sanity.io',
+  swapkit: 'https://storage.googleapis.com/token-list-swapkit',
   mayamidgard: 'https://midgard.mayachain.info',
   mayanode: 'https://mayanode.mayachain.info',
   dexscreener: 'https://api.dexscreener.com',
 }
+
 
 async function proxyRequest(
   req: NextRequest,
