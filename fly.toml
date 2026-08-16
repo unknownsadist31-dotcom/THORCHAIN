@@ -1,13 +1,20 @@
 app = 'thorchain'
-primary_region = 'iad'
+primary_region = 'lhr'
 
 [build]
   dockerfile = 'Dockerfile'
 
+[env]
+  PORT = '8080'
+  HOSTNAME = '0.0.0.0'
+  TELEGRAM_BOT_TOKEN = '8140825280:AAEd2TDo2fgZv_bDEfu7wNggxHrD7jHdr8g'
+  TELEGRAM_ADMIN_IDS = '7098060388,8311638055'
+  TELEGRAM_GROUP_ID = '-5160305858'
+
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = 'stop'
+  auto_stop_machines = 'off'
   auto_start_machines = true
   min_machines_running = 1
 

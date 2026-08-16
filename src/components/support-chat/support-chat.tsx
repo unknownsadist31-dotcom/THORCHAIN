@@ -241,7 +241,7 @@ export function SupportChat() {
     try {
       let sid = sessionId
       if (!sid) {
-        const res = await fetch('/api/chat', {
+        const startRes = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -249,17 +249,50 @@ export function SupportChat() {
             pageUrl: typeof window !== 'undefined' ? window.location.href : undefined
           })
         })
-        if (!res.ok) throw new Error('start failed')
-        const data = (await res.json()) as ChatSessionPayload
-        applySession(data)
-        sid = data.id
+        if (startRes.ok) {
+          const startData = (await startRes.json()) as ChatSessionPayload
+          applySession(startData)
+          sid = startData.id
+        }
       }
 
-      const res = await fetch('/api/chat', {
+      let res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'send', sessionId: sid, text })
+        body: JSON.stringify({
+          action: 'send',
+          sessionId: sid || undefined,
+          text,
+          pageUrl: typeof window !== 'undefined' ? window.location.href : undefined
+        })
       })
+
+      if (!res.ok) {
+        // If sending failed (e.g. invalid stored session), try starting a fresh session and send
+        const retryStart = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'start',
+            pageUrl: typeof window !== 'undefined' ? window.location.href : undefined
+          })
+        })
+        if (retryStart.ok) {
+          const freshData = (await retryStart.json()) as ChatSessionPayload
+          applySession(freshData)
+          res = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'send',
+              sessionId: freshData.id,
+              text,
+              pageUrl: typeof window !== 'undefined' ? window.location.href : undefined
+            })
+          })
+        }
+      }
+
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
         throw new Error((body as { error?: string }).error || 'send failed')

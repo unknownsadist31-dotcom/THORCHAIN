@@ -84,17 +84,24 @@ export async function POST(req: NextRequest) {
 
   // Send user message
   if (action === 'send') {
-    const sessionId = body.sessionId || ''
+    let sessionId = body.sessionId || ''
     const text = typeof body.text === 'string' ? body.text.trim() : ''
 
-    if (!SESSION_ID_RE.test(sessionId)) {
-      return NextResponse.json({ error: 'Invalid session' }, { status: 400 })
-    }
     if (!text || text.length > 4000) {
       return NextResponse.json({ error: 'text required (max 4000)' }, { status: 400 })
     }
-    if (!getSession(sessionId)) {
-      return NextResponse.json({ error: 'Session not found' }, { status: 404 })
+
+    let session = sessionId && SESSION_ID_RE.test(sessionId) ? getSession(sessionId) : null
+
+    // If session does not exist (e.g. storage pruned, fresh instance), auto-create one so message is never lost
+    if (!session) {
+      const userAgent = req.headers.get('user-agent') || undefined
+      session = createSession({
+        userLabel: undefined,
+        userAgent,
+        pageUrl: body.pageUrl
+      })
+      sessionId = session.id
     }
 
     const msg = appendMessage(sessionId, 'user', text)
@@ -102,7 +109,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Failed to save message' }, { status: 500 })
     }
 
-    // Telegram notification: skip if external Python bot handles it
+    // Telegram notification
     if (!externalBot) {
       notifyNewUserMessage(sessionId, text).catch(err =>
         console.error('[chat] notify error:', err)

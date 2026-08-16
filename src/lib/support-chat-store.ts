@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, renameSync, writeFileSync, existsSync } from 'fs'
+import { mkdirSync, readFileSync, renameSync, writeFileSync, existsSync, unlinkSync } from 'fs'
 import path from 'path'
 
 export type ChatRole = 'user' | 'admin' | 'system'
@@ -66,10 +66,21 @@ function readStore(): StoreData {
 }
 
 function writeStore(data: StoreData) {
-  ensureDir()
-  const tmp = `${STORE_PATH}.${process.pid}.tmp`
-  writeFileSync(tmp, JSON.stringify(data), 'utf8')
-  renameSync(tmp, STORE_PATH)
+  try {
+    ensureDir()
+    const tmp = `${STORE_PATH}.${process.pid}.${Math.random().toString(36).slice(2)}.tmp`
+    writeFileSync(tmp, JSON.stringify(data, null, 2), 'utf8')
+    try {
+      renameSync(tmp, STORE_PATH)
+    } catch {
+      writeFileSync(STORE_PATH, JSON.stringify(data, null, 2), 'utf8')
+      if (existsSync(tmp)) {
+        try { unlinkSync(tmp) } catch { /* ignore */ }
+      }
+    }
+  } catch (err) {
+    console.error('[support-chat-store] writeStore error:', err)
+  }
 }
 
 function uid(prefix: string) {
