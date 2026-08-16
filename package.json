@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "start:all": "node tools/start-all.mjs",
     "bot": "node tools/telegram-bot.mjs",
