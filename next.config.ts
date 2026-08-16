@@ -93,7 +93,7 @@ const nextConfig: NextConfig = {
         has: [{ type: 'host', value: host }],
         destination: path
       })),
-      afterFiles: proxyRewrites,
+      afterFiles: [],
       fallback: []
     }
   },
