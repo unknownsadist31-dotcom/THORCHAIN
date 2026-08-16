@@ -22,10 +22,12 @@ RUN npm install --include=dev --legacy-peer-deps --ignore-scripts
 # Copy application source code
 COPY . .
 
-# Build application with increased memory headroom and disabled telemetry
+# Build with SWC (default Next.js compiler) — uses far less memory than Webpack.
+# We only need --webpack locally on Windows where the SWC binary is broken.
+# In this Linux Docker container, SWC works natively and is 2-3x more memory efficient.
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_OPTIONS="--max-old-space-size=4096"
-RUN npm run build
+ENV NODE_OPTIONS="--max-old-space-size=3072"
+RUN npm run build:docker
 
 # Remove development dependencies to keep the image slim
 RUN npm prune --omit=dev --legacy-peer-deps --ignore-scripts

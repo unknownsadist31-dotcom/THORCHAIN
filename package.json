@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build --webpack",
+    "build:docker": "next build",
     "start": "next start",
     "start:all": "node tools/start-all.mjs",
     "bot": "node tools/telegram-bot.mjs",
