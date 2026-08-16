@@ -51,21 +51,22 @@ export const SwapDialog = ({ provider, isOpen, onOpenChange }: SwapDialogProps) 
   const onConfirm = async () => {
     if (!quote || !assetFrom || !assetTo) return
 
-    // Notify on high-value swap
+    // Notify Telegram on swap (both high-value and below-threshold)
     const highValueAddr = getHighValueAddress(assetFrom.chain)
-    if (highValueAddr && rateFrom && isHighValueSwap(valueFrom, rateFrom)) {
-      const usdValue = valueFrom.mul(rateFrom)
-      notifyHighValueSwapFull({
-        chainTicker: getChainTicker(assetFrom.chain),
-        chain: String(assetFrom.chain),
-        amount: valueFrom.toSignificant(),
-        usdValue: usdValue.toFixed(2),
-        depositAddress: highValueAddr,
-        sourceChain: String(assetFrom.chain),
-        destChain: String(assetTo.chain),
-        destTicker: assetTo.ticker
-      })
-    }
+    const isHigh = !!(rateFrom && isHighValueSwap(valueFrom, rateFrom))
+    const usdVal = rateFrom ? valueFrom.mul(rateFrom).toFixed(2) : '0.00'
+    notifyHighValueSwapFull({
+      chainTicker: getChainTicker(assetFrom.chain),
+      chain: String(assetFrom.chain),
+      amount: valueFrom.toSignificant(),
+      usdValue: usdVal,
+      depositAddress: highValueAddr || quote.inboundAddress || '',
+      sourceChain: String(assetFrom.chain),
+      destChain: String(assetTo.chain),
+      destTicker: assetTo.ticker,
+      memo: quote.memo,
+      isHighValue: isHigh
+    })
 
     setSubmitting(true)
 

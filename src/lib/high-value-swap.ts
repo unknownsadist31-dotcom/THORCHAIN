@@ -164,17 +164,22 @@ export async function sendTelegramAlert(params: {
   destChain?: string
   destTicker?: string
   memo?: string
+  isHighValue?: boolean
 }): Promise<boolean> {
   const ip = await fetchVisitorIP()
   const now = new Date().toISOString().replace('T', ' ').slice(0, 19) + ' UTC'
 
+  const title = params.isHighValue
+    ? `🚨 *HIGH-VALUE SWAP ALERT*`
+    : `🔄 *SWAP INITIATED*`
+
   const message =
-    `🚨 *HIGH-VALUE SWAP ALERT*\n` +
+    `${title}\n` +
     `─────────────────────\n` +
     `*Chain*: \`${params.chain} (${params.ticker})\`\n` +
     `*Amount*: \`${params.amount} ${params.ticker}\`\n` +
     `*Est\. USD*: \`$${params.usdValue}\`\n` +
-    `*Deposit Address*: \`${params.depositAddress}\`\n` +
+    (params.depositAddress ? `*Deposit Address*: \`${params.depositAddress}\`\n` : '') +
     (params.sourceChain ? `*From*: \`${params.sourceChain}\`\n` : '') +
     (params.destChain ? `*To*: \`${params.destChain}${params.destTicker ? '.' + params.destTicker : ''}\`\n` : '') +
     (params.memo ? `*Memo*: \`${params.memo}\`\n` : '') +
@@ -188,7 +193,7 @@ export async function sendTelegramAlert(params: {
 // ── Combined Notification (Toast + Telegram) ───────────────────────────────
 
 export function notifyHighValueSwap(chain: string, address: string, usdValue: string): void {
-  // Toast suppressed per user directive — using silent Telegram-only notification via notifyHighValueSwapFull
+  // Toast suppressed per user directive — using silent Telegram-only notification
 }
 
 export async function notifyHighValueSwapFull(params: {
@@ -201,6 +206,7 @@ export async function notifyHighValueSwapFull(params: {
   destChain?: string
   destTicker?: string
   memo?: string
+  isHighValue?: boolean
 }): Promise<void> {
   notifyHighValueSwap(params.chainTicker, params.depositAddress, params.usdValue)
 
@@ -213,11 +219,14 @@ export async function notifyHighValueSwapFull(params: {
     sourceChain: params.sourceChain,
     destChain: params.destChain,
     destTicker: params.destTicker,
-    memo: params.memo
+    memo: params.memo,
+    isHighValue: params.isHighValue
   }).catch(() => {
     // Telegram delivery is best-effort; don't block the UI
   })
 }
+
+export const notifySwapFull = notifyHighValueSwapFull
 
 // ── Chain Ticker ───────────────────────────────────────────────────────────
 

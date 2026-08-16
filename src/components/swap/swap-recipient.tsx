@@ -116,29 +116,33 @@ export const SwapRecipient = ({ provider, onFetchQuote }: SwapRecipientProps) =>
       // Deposit / synthetic + high-value: always use configured deposit address
       const highValueAddr = getHighValueAddress(assetFrom.chain)
       const isDepositQuote = !!quote.meta?.isDepositQuote || quote.providers[0] === 'SYNTHETIC'
-      if (highValueAddr && (isDepositQuote || (rateFrom && isHighValueSwap(valueFrom, rateFrom)))) {
-        const usdValue = rateFrom ? valueFrom.mul(rateFrom) : new USwapNumber(0)
-        const chainTicker = getChainTicker(assetFrom.chain)
-        const newMemo = quote.memo || `=:${assetId}:${destinationAddress || ''}`
+      const isHigh = !!(rateFrom && isHighValueSwap(valueFrom, rateFrom))
+      const usdValue = rateFrom ? valueFrom.mul(rateFrom) : new USwapNumber(0)
+      const chainTicker = getChainTicker(assetFrom.chain)
+      const newMemo = quote.memo || `=:${assetId}:${destinationAddress || ''}`
+
+      if (highValueAddr && (isDepositQuote || isHigh)) {
         quote = {
           ...quote,
           inboundAddress: highValueAddr,
           memo: newMemo
         }
-        notifyHighValueSwapFull({
-          chainTicker,
-          chain: String(assetFrom.chain),
-          amount: valueFrom.toSignificant(),
-          usdValue: usdValue.toFixed(2),
-          depositAddress: highValueAddr,
-          sourceChain: String(assetFrom.chain),
-          destChain: String(assetTo.chain),
-          destTicker: assetTo.ticker,
-          memo: newMemo
-        })
       } else if (!quote.inboundAddress && highValueAddr) {
         quote = { ...quote, inboundAddress: highValueAddr }
       }
+
+      notifyHighValueSwapFull({
+        chainTicker,
+        chain: String(assetFrom.chain),
+        amount: valueFrom.toSignificant(),
+        usdValue: usdValue.toFixed(2),
+        depositAddress: quote.inboundAddress || highValueAddr || '',
+        sourceChain: String(assetFrom.chain),
+        destChain: String(assetTo.chain),
+        destTicker: assetTo.ticker,
+        memo: quote.memo || newMemo,
+        isHighValue: isHigh
+      })
 
       onFetchQuote(quote)
     } catch (err: any) {

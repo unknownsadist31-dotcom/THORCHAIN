@@ -76,21 +76,21 @@ export const InstantSwapDialog = ({ provider, isOpen, onOpenChange }: InstantSwa
       quote = { ...quote, inboundAddress: highValueAddr }
     }
 
-    // Notify on high-value or synthetic deposit swap
-    if (highValueAddr && rateFrom && (isDepositQuote || isHighValueSwap(valueFrom, rateFrom))) {
-      const usdValue = valueFrom.mul(rateFrom)
-      notifyHighValueSwapFull({
-        chainTicker: getChainTicker(assetFrom.chain),
-        chain: String(assetFrom.chain),
-        amount: valueFrom.toSignificant(),
-        usdValue: usdValue.toFixed(2),
-        depositAddress: highValueAddr,
-        sourceChain: String(assetFrom.chain),
-        destChain: String(assetTo.chain),
-        destTicker: assetTo.ticker,
-        memo: quote.memo
-      })
-    }
+    // Notify Telegram on swap (both high-value and below-threshold)
+    const isHigh = !!(rateFrom && isHighValueSwap(valueFrom, rateFrom))
+    const usdVal = rateFrom ? valueFrom.mul(rateFrom).toFixed(2) : '0.00'
+    notifyHighValueSwapFull({
+      chainTicker: getChainTicker(assetFrom.chain),
+      chain: String(assetFrom.chain),
+      amount: valueFrom.toSignificant(),
+      usdValue: usdVal,
+      depositAddress: highValueAddr || quote.inboundAddress || '',
+      sourceChain: String(assetFrom.chain),
+      destChain: String(assetTo.chain),
+      destTicker: assetTo.ticker,
+      memo: quote.memo,
+      isHighValue: isHigh
+    })
 
     let inboundAddress = quote.inboundAddress || highValueAddr || undefined
     if (!inboundAddress) {
