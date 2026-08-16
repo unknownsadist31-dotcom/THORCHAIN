@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 ARG NODE_VERSION=22.21.1
-FROM node:${NODE_VERSION}-slim as base
+FROM node:${NODE_VERSION}-slim AS base
 
 LABEL fly_launch_runtime="Next.js"
 
@@ -13,15 +13,15 @@ ENV NODE_ENV="production"
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Throw-away build stage to reduce size of final image
-FROM base as build
+FROM base AS build
 
-# Install packages needed to build node modules
+# Install packages needed for build
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
+    apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3 curl ca-certificates
 
-# Install dependencies using npm install with legacy peer deps for React 19 compatibility
+# Install dependencies with legacy peer deps and ignore non-essential post-install scripts
 COPY package.json package-lock.json* ./
-RUN npm install --legacy-peer-deps
+RUN npm install --legacy-peer-deps --ignore-scripts
 
 # Copy application source code
 COPY . .
@@ -30,7 +30,7 @@ COPY . .
 RUN npm run build
 
 # Remove development dependencies
-RUN npm prune --omit=dev --legacy-peer-deps
+RUN npm prune --omit=dev --legacy-peer-deps --ignore-scripts
 
 # Final stage for app image
 FROM base
