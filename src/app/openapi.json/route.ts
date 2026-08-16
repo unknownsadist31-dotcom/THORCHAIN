@@ -1,4 +1,8 @@
+import { NextResponse } from 'next/server'
 import { AppConfig } from '@/config'
+
+export const dynamic = 'force-dynamic'
+
 
 export function GET() {
   const openapi = {
@@ -85,9 +89,10 @@ export function GET() {
     }
   }
 
-  return new Response(JSON.stringify(openapi, null, 2), {
+  return new NextResponse(JSON.stringify(openapi, null, 2), {
     headers: {
       'Content-Type': 'application/vnd.oai.openapi+json; charset=utf-8'
     }
   })
 }
+
