@@ -1,35 +1,30 @@
-# THORChain Agent Rules
+# AGENTS.md — THORChain Swap
 
-This is the public agent contract for thorchain.org.
+Guidance for AI agents interacting with the public THORChain Swap web interface.
 
-## Scope
+## What This Site Does
 
-- Use these rules for public website discovery, documentation lookup, and read-only THORChain resource navigation.
-- Treat protocol state, pool data, fees, pricing, and endpoint availability as live external data that must be rechecked at request time.
-- Do not treat this website contract as permission to trade, sign transactions, move funds, submit governance, or access private systems.
+THORChain Swap is a public web interface for native cross-chain swaps powered by THORChain and Maya Protocol.
+There are no user accounts; users connect their own wallets in the browser and sign transactions locally.
 
-## Preferred Sources
+## MCP Server
 
-- Site summary: https://thorchain.org/llms.txt
-- Expanded resource map: https://thorchain.org/llms-full.txt
-- OpenAPI discovery: https://thorchain.org/openapi.json
-- MCP server card: https://thorchain.org/.well-known/mcp-server-card.json
-- Read-only MCP endpoint: https://thorchain.org/mcp
-- Developer documentation: https://dev.thorchain.org/
-- Protocol documentation: https://docs.thorchain.org/
+A public, unauthenticated, rate-limited MCP server (streamable HTTP, stateless, JSON responses) is available at:
 
-## Safety Rules
+- Endpoint: /mcp
+- Server card: /.well-known/mcp-server-card
 
-- Prefer official THORChain documentation for protocol behavior.
-- Prefer linked Swagger or API documentation for endpoint-specific request and response shapes.
-- Say when data is stale, cached, unavailable, or inferred.
-- Do not give financial, investment, tax, or legal advice.
-- Do not invent endpoint capabilities. If a capability is not documented, call it unknown.
-- Respect robots.txt and Content-Signal policy.
+Tools (read-only):
 
-## MCP Contract
+- get_swap_quote — fetch a THORChain swap quote for an asset pair.
+- list_pools — list liquidity pools with status, depths, and USD asset price.
+- get_network_status — current THORChain network parameters.
 
-- The public MCP endpoint is read-only.
-- Tools expose discovery text, resource maps, and public API references.
-- Tools do not mutate state, submit transactions, manage accounts, or bypass authentication.
-- Clients should expect public API providers to rate-limit or change availability.
+## Public Pages
+
+- Swap: /swap
+- Pool: https://pool.thorchain.org/
+- Bond: https://bond.thorchain.org/
+- Memo: https://memo.thorchain.org/
+- TCY: https://tcy.thorchain.org/
+- THORName: https://thorname.thorchain.org/
