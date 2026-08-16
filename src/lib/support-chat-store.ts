@@ -139,8 +139,17 @@ export function appendMessage(
   if (!trimmed || trimmed.length > 4000) return null
 
   const data = readStore()
-  const session = data.sessions[sessionId]
-  if (!session) return null
+  let session = data.sessions[sessionId]
+  if (!session) {
+    session = {
+      id: sessionId,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      userLabel: `Guest-${sessionId.slice(-6).toUpperCase()}`,
+      messages: []
+    }
+    data.sessions[sessionId] = session
+  }
 
   const msg: ChatMessage = {
     id: uid('msg'),
@@ -160,7 +169,15 @@ export function appendMessage(
 
 export function setAdminPending(adminId: number | string, sessionId: string) {
   const data = readStore()
-  if (!data.sessions[sessionId]) return false
+  if (!data.sessions[sessionId]) {
+    data.sessions[sessionId] = {
+      id: sessionId,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      userLabel: `Guest-${sessionId.slice(-6).toUpperCase()}`,
+      messages: []
+    }
+  }
   data.adminPending[String(adminId)] = {
     mode: 'awaiting_reply',
     sessionId,

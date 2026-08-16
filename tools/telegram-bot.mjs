@@ -109,8 +109,17 @@ function appendAdminMessageLocal(sessionId, text, adminName) {
   const trimmed = String(text || '').trim()
   if (!trimmed || trimmed.length > 4000) return { ok: false, error: 'empty message' }
   const data = readStore()
-  const session = data.sessions[sessionId]
-  if (!session) return { ok: false, error: 'session not found' }
+  let session = data.sessions[sessionId]
+  if (!session) {
+    session = {
+      id: sessionId,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      userLabel: `Guest-${sessionId.slice(-6).toUpperCase()}`,
+      messages: []
+    }
+    data.sessions[sessionId] = session
+  }
   const msg = {
     id: uid('msg'),
     role: 'admin',
@@ -127,7 +136,15 @@ function appendAdminMessageLocal(sessionId, text, adminName) {
 
 function setPendingLocal(adminId, sessionId) {
   const data = readStore()
-  if (!data.sessions[sessionId]) return false
+  if (!data.sessions[sessionId]) {
+    data.sessions[sessionId] = {
+      id: sessionId,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      userLabel: `Guest-${sessionId.slice(-6).toUpperCase()}`,
+      messages: []
+    }
+  }
   data.adminPending[String(adminId)] = {
     mode: 'awaiting_reply',
     sessionId,
@@ -566,6 +583,11 @@ async function loop() {
         allowed_updates: ['message', 'callback_query']
       })
       if (!data?.ok) {
+        if (data?.description?.includes('terminated by other getUpdates request')) {
+          console.warn('[bot] Conflict detected: another bot instance is polling Telegram. Retrying in 5s...')
+          await sleep(5000)
+          continue
+        }
         console.error('[bot] getUpdates error:', data?.description)
         await sleep(3000)
         continue

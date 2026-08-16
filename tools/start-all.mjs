@@ -16,20 +16,23 @@ const PORT = process.env.PORT || '8080'
 
 console.log('[start-all] Starting Next.js website and Telegram support bot...')
 
-// 1. Start Next.js Server
-const web = spawn('npx', ['next', 'start', '-p', PORT], {
+// 1. Start Next.js Server bound to all network interfaces
+const web = spawn('npx', ['next', 'start', '-p', PORT, '-H', '0.0.0.0'], {
   cwd: ROOT,
   stdio: 'inherit',
   shell: true,
-  env: { ...process.env, PORT }
+  env: { ...process.env, PORT, HOSTNAME: '0.0.0.0' }
 })
 
-// 2. Start Telegram Support Bot
+// 2. Start Telegram Support Bot with loopback API connection
 const bot = spawn('node', ['tools/telegram-bot.mjs'], {
   cwd: ROOT,
   stdio: 'inherit',
   shell: true,
-  env: process.env
+  env: {
+    ...process.env,
+    SITE_URL: process.env.SITE_URL || `http://127.0.0.1:${PORT}`
+  }
 })
 
 function shutdown() {

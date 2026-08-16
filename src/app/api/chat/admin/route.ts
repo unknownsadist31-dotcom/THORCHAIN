@@ -136,9 +136,6 @@ export async function POST(req: NextRequest) {
     if (!text || text.length > 4000) {
       return NextResponse.json({ error: 'text required (max 4000)' }, { status: 400 })
     }
-    if (!getSession(sessionId)) {
-      return NextResponse.json({ error: 'Session not found' }, { status: 404 })
-    }
     const name =
       typeof body.adminName === 'string' && body.adminName.trim()
         ? body.adminName.trim().slice(0, 64)
@@ -156,8 +153,7 @@ export async function POST(req: NextRequest) {
     if (body.adminId == null || !SESSION_ID_RE.test(sessionId)) {
       return NextResponse.json({ error: 'adminId + sessionId required' }, { status: 400 })
     }
-    const ok = setAdminPending(body.adminId, sessionId)
-    if (!ok) return NextResponse.json({ error: 'Session not found' }, { status: 404 })
+    setAdminPending(body.adminId, sessionId)
     return NextResponse.json({ ok: true })
   }
 

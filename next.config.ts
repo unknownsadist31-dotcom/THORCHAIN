@@ -39,7 +39,6 @@ const proxyRewrites = [
 ]
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
   devIndicators: false,
   typescript: {
     ignoreBuildErrors: true,
