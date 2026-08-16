@@ -1,0 +1,14 @@
+import{d as v,y as b,f as _,t as y,l as m,F as N,z as O,o as g,A as S,C as h,D as x,E as d,G as w,H as I,q as f,x as C,g as $}from"./CZTMkqHr.js";import{p as k,h as U,s as E}from"./NPFGtUFG.js";import{p as L,g as D,t as P,c as j,d as z,e as A,i as B,O as R,f as T,s as p}from"./BT1gpDxZ.js";const V=["onClick"],F={class:"overflow-hidden"},Q={class:"inline-block translate-y-full text-white transition-transform duration-300 ease-power2-in-out group-hover-focus:translate-y-0"},W={class:"pointer-events-auto flex w-14 items-center justify-end"},q=v({__name:"SlicesSubNav",props:{sections:{},class:{}},setup(e){const s=e,o=b(""),l=b({}),r=_(()=>[...s.sections,{slug:"footer",title:"Footer"}]);function c(){const n=new IntersectionObserver(a=>{a.forEach(i=>{const u=i.target.id;l.value[u]=i.intersectionRect.height});const t=Object.entries(l.value).sort((i,u)=>u[1]-i[1])[0];t&&t[1]>0&&(o.value=t[0])},{threshold:[0,.25,.5,.75,1]});r.value.forEach(a=>{const t=document.getElementById(a.slug);t&&n.observe(t)})}return y(()=>{c()}),(n,a)=>{const t=I("animation");return f(),m("ul",{class:S(g(h)("pointer-events-none z-subnav flex flex-col items-end mix-blend-difference",s.class))},[(f(!0),m(N,null,O(g(r),(i,u)=>x((f(),m("li",{key:u},[d("button",{class:"group flex gap-14",onClick:H=>n.$lenis.scrollTo(`#${i.slug}`,{lerp:.1})},[d("div",F,[d("span",Q,w(i.title),1)]),d("div",W,[d("span",{class:S(g(h)(`
+              h-2 w-full shrink-0 origin-right scale-x-50 bg-neutral-555 duration-300 ease-power2-in-out
+              group-hover-focus:scale-x-100
+            `,{"scale-x-100 bg-white":i.slug===g(o)}))},null,2)])],8,V)])),[[t,{preset:"fade",animationOptions:{fromY:10},timelineVars:{delay:u*.1}}]])),128))],2)}}}),Z=Object.assign(q,{__name:"SlicesSubNav"}),K=$`
+*[_type == "page" && slug.current == $slug] {
+  ${E},
+
+  "globalSeo": *[_type == 'globalSeo'][0].seo {
+    ${p}
+  },
+
+  seo { ${p} }
+}[0]
+`;function G(e,s){if(!s.canonicalUrl)return;const o=D(s.canonicalUrl),l=e.seo?.title??e.globalSeo?.title,r=e.seo?.description??e.globalSeo?.description,c=e.seo?.ogSiteName??e.globalSeo?.ogSiteName??"THORChain",n=P(e.seo?.ogLocale??e.globalSeo?.ogLocale),a=e.seo?.ogImage??e.globalSeo?.ogImage??e.seo?.twitterImage??e.globalSeo?.twitterImage,t={"@context":"https://schema.org","@graph":j([z(c),A({siteUrl:o,siteName:c,description:r,locale:n}),{"@type":"WebPage","@id":`${s.canonicalUrl}#webpage`,url:s.canonicalUrl,name:l,description:r,inLanguage:n,isPartOf:o?{"@id":T(o)}:void 0,about:{"@id":R},primaryImageOfPage:B(a)}])};return JSON.stringify(t,null,2)}function X(e,s={}){if(!e)return;const o=k(e.slices),l=o?.map(a=>a.sliceId).filter(C),r=e.seo?.structuredContent?.code?.trim()?void 0:G(e,s),{head:c,seo:n}=L(e.globalSeo,e.seo,{additionalStructuredContent:[r]});return{sectionsSubNav:U(l),slices:o,head:c,seo:n}}export{Z as _,K as a,X as p};

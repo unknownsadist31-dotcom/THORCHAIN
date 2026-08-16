@@ -1,0 +1,4 @@
+import{d as i,bm as l,bn as r,l as c,q as p,E as u,Y as m,G as _,A as a,Z as v,o as d,C as x}from"./CZTMkqHr.js";const b={class:"app-text-16"},f=i({__name:"AppFilter",props:l({text:{}},{"is-active":{type:Boolean,required:!0},"is-activeModifiers":{}}),emits:["update:is-active"],setup(t){const n=t,e=r(t,"is-active");return(g,s)=>{const o=v;return p(),c("button",{class:a(d(x)(`
+      relative flex items-center gap-5 rounded-full bg-neutral-100 px-16 pt-14 pb-13 text-neutral-650 transition-normal
+      hover-focus:bg-black hover-focus:text-white
+    `,{"bg-black text-white":e.value})),onClick:s[0]||(s[0]=k=>e.value=!e.value)},[u("span",b,_(n.text),1),m(o,{name:"plus",class:a(["size-12 fill-current transition-normal",e.value?"rotate-45":void 0])},null,8,["class"])],2)}}}),h=Object.assign(f,{__name:"AppFilter"});export{h as _};
