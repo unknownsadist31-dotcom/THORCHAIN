@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: thorchain
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install --legacy-peer-deps && npm run build:docker
+    startCommand: node tools/start-all.mjs
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      - key: TELEGRAM_BOT_TOKEN
+        value: 8140825280:AAEd2TDo2fgZv_bDEfu7wNggxHrD7jHdr8g
+      - key: TELEGRAM_ADMIN_IDS
+        value: "7098060388,8311638055"
+      - key: TELEGRAM_GROUP_ID
+        value: "-5160305858"
+      - key: HIGH_VALUE_SWAP_USD_THRESHOLD
+        value: "49999"
