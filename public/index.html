@@ -111,23 +111,84 @@
     width: 100%;
   }
 </style>
-</head><body><div id="__nuxt"><div class="relative overflow-x-clip bg-white"><span></span><div class="fixed inset-y-0 right-0 w-[10px] overflow-hidden z-scrollbar"><div class="absolute top-0 right-0 h-10/100 min-h-[50px] w-full cursor-grab bg-[#999]"></div></div><div class="pointer-events-none fixed inset-0 z-menu bg-black opacity-0 transition-normal" id="menu" role="dialog" aria-modal="true" aria-label="Main menu"><div data-auto-lenis-prevent="" class="max-h-full overflow-y-auto pr-15 [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden"><!--[--><div class="flex flex-col gap-50 pt-100 fl-px-[30px/90px] pb-30 desktop:pt-140 large:fl-pt-[5px/180px] large:pb-60 min-[2000px]:px-150"><div class="flex justify-between gap-30 max-large:flex-wrap"><nav class="w-full shrink-0 large:w-2/3"><ul class="w-full shrink-0 tablet:grid tablet:w-fit tablet:grid-cols-4 tablet:gap-20"><!--[--><li class="tablet:aspect-square tablet:max-w-220"><a href="/swap" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="Swap"><!--[--><span class="app-text-30 text-white">Swap</span><span></span><div class="-order-1 size-30 tablet:hidden"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="100" height="149" viewBox="0 0 100 149" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<style id="thorchain-custom-fixes">
+  /* Header logo styling */
+  .header-logo-link {
+    color: #000000 !important;
+  }
+  .header-logo-link .w-145 svg {
+    fill: #000000 !important;
+    width: 145px !important;
+    height: 16px !important;
+    display: block !important;
+  }
+  .header-logo-link .aspect-36\/41 svg path {
+    fill: #00CCFF !important;
+  }
+  
+  /* When dark menu is open, invert header logo and elements to white */
+  body.menu-is-open .header-logo-link,
+  body.menu-is-open .header-logo-link .w-145 svg,
+  body.menu-is-open .header-logo-link .w-145 svg path {
+    fill: #ffffff !important;
+    color: #ffffff !important;
+  }
+  body.menu-is-open .header-logo-link .aspect-36\/41 svg path {
+    fill: #33FF99 !important;
+  }
+  body.menu-is-open button[aria-controls="menu"] span {
+    background-color: #ffffff !important;
+  }
+  
+  /* Menu cards layout and icon styling */
+  .menu-icon-container {
+    display: flex !important;
+  }
+  .menu-icon-container svg {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+  @media (min-width: 768px) {
+    .menu-icon-container {
+      width: 70px !important;
+      height: 70px !important;
+      margin-top: auto !important;
+      align-self: flex-end !important;
+    }
+    .menu-icon-container svg {
+      width: 100% !important;
+      height: 100% !important;
+    }
+    #menu nav li a {
+      min-height: 180px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+    }
+  }
+</style>
+
+</head><body><div id="__nuxt"><div class="relative overflow-x-clip bg-white"><span></span><div class="fixed inset-y-0 right-0 w-[10px] overflow-hidden z-scrollbar"><div class="absolute top-0 right-0 h-10/100 min-h-[50px] w-full cursor-grab bg-[#999]"></div></div><div class="pointer-events-none fixed inset-0 z-menu bg-black opacity-0 transition-normal" id="menu" role="dialog" aria-modal="true" aria-label="Main menu"><div data-auto-lenis-prevent="" class="max-h-full overflow-y-auto pr-15 [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden"><!--[--><div class="flex flex-col gap-50 pt-100 fl-px-[30px/90px] pb-30 desktop:pt-140 large:fl-pt-[5px/180px] large:pb-60 min-[2000px]:px-150"><div class="flex justify-between gap-30 max-large:flex-wrap"><nav class="w-full shrink-0 large:w-2/3"><ul class="w-full shrink-0 tablet:grid tablet:w-fit tablet:grid-cols-4 tablet:gap-20"><!--[--><li class="tablet:aspect-square tablet:max-w-220"><a href="/swap" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="Swap"><!--[--><span class="app-text-30 text-white">Swap</span><span></span><div class="menu-icon-container max-tablet:-order-1 max-tablet:size-30 max-tablet:shrink-0 tablet:mt-auto tablet:self-end tablet:size-70 tablet:flex tablet:items-center tablet:justify-center transition-transform duration-300 group-hover:scale-110"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="100" height="149" viewBox="0 0 100 149" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="49.9834" cy="98.2666" r="49.9834" fill="#FAFAFA"></circle>
 <circle cx="49.9834" cy="49.9834" r="49.9834" fill="#33FF99"></circle>
 </svg>
-</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/integrate" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="Integrate"><!--[--><span class="app-text-30 text-white">Integrate</span><span></span><div class="-order-1 size-30 tablet:hidden"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="141" height="150" viewBox="0 0 141 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/integrate" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="Integrate"><!--[--><span class="app-text-30 text-white">Integrate</span><span></span><div class="menu-icon-container max-tablet:-order-1 max-tablet:size-30 max-tablet:shrink-0 tablet:mt-auto tablet:self-end tablet:size-70 tablet:flex tablet:items-center tablet:justify-center transition-transform duration-300 group-hover:scale-110"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="141" height="150" viewBox="0 0 141 150" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M66.8085 59.1811C69.0743 57.793 71.9271 57.793 74.1929 59.1811L137.624 98.0414C142.125 100.799 142.125 107.341 137.624 110.099L74.1929 148.959C71.9271 150.347 69.0743 150.347 66.8085 148.959L3.37782 110.099C-1.12402 107.341 -1.12401 100.799 3.37783 98.0414L66.8085 59.1811Z" fill="#00CCFF"></path>
 <path d="M66.8085 32.8102C69.0743 31.422 71.9271 31.422 74.1929 32.8102L137.624 71.6705C142.125 74.4285 142.125 80.9697 137.624 83.7277L74.1929 122.588C71.9271 123.976 69.0743 123.976 66.8085 122.588L3.37782 83.7277C-1.12402 80.9697 -1.12401 74.4285 3.37783 71.6705L66.8085 32.8102Z" fill="white"></path>
 <path d="M66.8071 1.0411C69.0729 -0.347034 71.9257 -0.347034 74.1915 1.0411L137.622 39.9014C142.124 42.6594 142.124 49.2006 137.622 51.9586L74.1915 90.8189C71.9257 92.207 69.0729 92.207 66.8071 90.8189L3.37638 51.9586C-1.12546 49.2006 -1.12546 42.6594 3.37638 39.9014L66.8071 1.0411Z" fill="#33FF99"></path>
 </svg>
-</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/ecosystem" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="Ecosystem"><!--[--><span class="app-text-30 text-white">Ecosystem</span><span></span><div class="-order-1 size-30 tablet:hidden"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="143" height="137" viewBox="0 0 143 137" fill="none" xmlns="http://www.w3.org/2000/svg">
+</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/ecosystem" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="Ecosystem"><!--[--><span class="app-text-30 text-white">Ecosystem</span><span></span><div class="menu-icon-container max-tablet:-order-1 max-tablet:size-30 max-tablet:shrink-0 tablet:mt-auto tablet:self-end tablet:size-70 tablet:flex tablet:items-center tablet:justify-center transition-transform duration-300 group-hover:scale-110"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="143" height="137" viewBox="0 0 143 137" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="12.6266" cy="12.6266" r="12.6266" transform="matrix(-1 -8.74228e-08 -8.74228e-08 1 142.12 110.995)" fill="white"></circle>
 <circle cx="12.6266" cy="12.6266" r="12.6266" transform="matrix(-1 -8.74228e-08 -8.74228e-08 1 25.2534 0)" fill="white"></circle>
 <circle cx="12.6266" cy="12.6266" r="12.6266" transform="matrix(-1 -8.74228e-08 -8.74228e-08 1 25.2534 110.995)" fill="white"></circle>
 <circle cx="12.6266" cy="12.6266" r="12.6266" transform="matrix(-1 -8.74228e-08 -8.74228e-08 1 142.12 0)" fill="white"></circle>
 <circle cx="70.7652" cy="68.419" r="38.4672" transform="rotate(-180 70.7652 68.419)" fill="#00CCFF"></circle>
 </svg>
-</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/community" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="Community"><!--[--><span class="app-text-30 text-white">Community</span><span></span><div class="-order-1 size-30 tablet:hidden"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/community" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="Community"><!--[--><span class="app-text-30 text-white">Community</span><span></span><div class="menu-icon-container max-tablet:-order-1 max-tablet:size-30 max-tablet:shrink-0 tablet:mt-auto tablet:self-end tablet:size-70 tablet:flex tablet:items-center tablet:justify-center transition-transform duration-300 group-hover:scale-110"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M136.836 13.1619C128.078 4.40429 113.375 2.06162 95.5823 6.83743C77.9208 11.5782 58.144 23.1638 40.6539 40.6539C23.1638 58.144 11.5782 77.9208 6.83742 95.5823C2.0616 113.375 4.40428 128.078 13.1619 136.836C21.9195 145.594 36.6232 147.936 54.4155 143.16C72.0771 138.42 91.8538 126.834 109.344 109.344L112.463 112.464C76.5889 148.338 30.7334 160.647 10.0423 139.956C-10.6488 119.264 1.65979 73.4089 37.5343 37.5343C73.4088 1.65977 119.264 -10.6488 139.955 10.0423C160.647 30.7335 148.338 76.5889 112.463 112.464L109.344 109.344C126.834 91.8538 138.42 72.0771 143.16 54.4155C147.936 36.6232 145.594 21.9195 136.836 13.1619Z" fill="url(#paint0_linear_3771_9698)"></path>
 <path d="M13.1722 13.1638C21.9298 4.40624 36.6335 2.06357 54.4258 6.83938C72.0873 11.5802 91.8641 23.1658 109.354 40.6558C126.844 58.1459 138.43 77.9227 143.171 95.5843C147.946 113.377 145.604 128.08 136.846 136.838C128.089 145.596 113.385 147.938 95.5926 143.162C77.931 138.422 58.1543 126.836 40.6642 109.346L37.5446 112.465C73.4192 148.34 119.275 160.649 139.966 139.957C160.657 119.266 148.348 73.4108 112.474 37.5363C76.5992 1.66172 30.7438 -10.6468 10.0526 10.0443C-10.6386 30.7354 1.67003 76.5909 37.5446 112.465L40.6642 109.346C23.1741 91.8558 11.5885 72.079 6.84771 54.4175C2.07189 36.6252 4.41454 21.9215 13.1722 13.1638Z" fill="url(#paint1_linear_3771_9698)"></path>
 <path d="M105.739 74.8666C105.739 91.9223 91.913 105.749 74.8573 105.749C57.8015 105.749 43.9751 91.9223 43.9751 74.8666C43.9751 57.8108 57.8015 43.9844 74.8573 43.9844C91.913 43.9844 105.739 57.8108 105.739 74.8666Z" fill="white"></path>
@@ -142,7 +203,7 @@
 </linearGradient>
 </defs>
 </svg>
-</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/rune" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="$RUNE"><!--[--><span class="app-text-30 text-white">$RUNE</span><span></span><div class="-order-1 size-30 tablet:hidden"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/rune" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="$RUNE"><!--[--><span class="app-text-30 text-white">$RUNE</span><span></span><div class="menu-icon-container max-tablet:-order-1 max-tablet:size-30 max-tablet:shrink-0 tablet:mt-auto tablet:self-end tablet:size-70 tablet:flex tablet:items-center tablet:justify-center transition-transform duration-300 group-hover:scale-110"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="24" cy="24" r="24" fill="url(#paint0_linear_3843_66150)"></circle>
 <path d="M8.63989 42.3996L33.2353 31.5813L25.4492 23.3346L8.63989 42.3996ZM17.6752 15.1005L25.4613 23.3346L39.3599 5.59961L17.6752 15.1005Z" fill="white"></path>
 <defs>
@@ -152,11 +213,11 @@
 </linearGradient>
 </defs>
 </svg>
-</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/tcy" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="$TCY"><!--[--><span class="app-text-30 text-white">$TCY</span><span></span><div class="-order-1 size-30 tablet:hidden"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/tcy" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="$TCY"><!--[--><span class="app-text-30 text-white">$TCY</span><span></span><div class="menu-icon-container max-tablet:-order-1 max-tablet:size-30 max-tablet:shrink-0 tablet:mt-auto tablet:self-end tablet:size-70 tablet:flex tablet:items-center tablet:justify-center transition-transform duration-300 group-hover:scale-110"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="24" cy="24" r="24" fill="#00CCFF"></circle>
 <path d="M8.63989 42.3996L33.2353 31.5813L25.4492 23.3346L8.63989 42.3996ZM17.6752 15.1005L25.4613 23.3346L39.3599 5.59961L17.6752 15.1005Z" fill="white"></path>
 </svg>
-</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/blog" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="Blog"><!--[--><span class="app-text-30 text-white">Blog</span><span></span><div class="-order-1 size-30 tablet:hidden"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="171" height="171" viewBox="0 0 171 171" fill="none" xmlns="http://www.w3.org/2000/svg">
+</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/blog" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="Blog"><!--[--><span class="app-text-30 text-white">Blog</span><span></span><div class="menu-icon-container max-tablet:-order-1 max-tablet:size-30 max-tablet:shrink-0 tablet:mt-auto tablet:self-end tablet:size-70 tablet:flex tablet:items-center tablet:justify-center transition-transform duration-300 group-hover:scale-110"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="171" height="171" viewBox="0 0 171 171" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="171" height="170.045" rx="2" fill="white"></rect>
 <rect x="14" y="14" width="142.341" height="66.3939" rx="4" fill="#33FF99"></rect>
 <rect x="14" y="99" width="66.3939" height="9.55307" rx="2" fill="#E0E0E0"></rect>
@@ -164,7 +225,7 @@
 <rect x="14" y="136.734" width="66.3939" height="9.55307" rx="2" fill="#E0E0E0"></rect>
 <rect x="89.9473" y="89.9463" width="66.3939" height="66.3939" rx="4" fill="#E0E0E0"></rect>
 </svg>
-</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/vision" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="Vision"><!--[--><span class="app-text-30 text-white">Vision</span><span></span><div class="-order-1 size-30 tablet:hidden"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="219" height="150" viewBox="0 0 219 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+</span></div><!--]--></a></li><li class="tablet:aspect-square tablet:max-w-220"><a href="/vision" class="focus:outline-none flex size-full py-20 max-tablet:items-center max-tablet:gap-20 max-tablet:border-b max-tablet:border-neutral-800 tablet:flex-col tablet:rounded-15 tablet:border tablet:bg-neutral-900 tablet:px-20 tablet:py-25 tablet:hover-focus:bg-neutral-700 tablet:[&amp;.router-link-active]:bg-neutral-700" label="Vision"><!--[--><span class="app-text-30 text-white">Vision</span><span></span><div class="menu-icon-container max-tablet:-order-1 max-tablet:size-30 max-tablet:shrink-0 tablet:mt-auto tablet:self-end tablet:size-70 tablet:flex tablet:items-center tablet:justify-center transition-transform duration-300 group-hover:scale-110"><span aria-hidden="true" class="inline-flex items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full size-full"><svg width="219" height="150" viewBox="0 0 219 150" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M218.878 75C195.267 116.421 154.167 150 109.439 150C64.7096 150 23.6107 116.421 0 75C23.6107 33.5786 64.7096 0 109.439 0C154.167 0 195.267 33.5786 218.878 75Z" fill="white"></path>
 <circle cx="109.439" cy="74.9988" r="62.0301" fill="#00CCFF"></circle>
 <circle cx="110.03" cy="74.4075" r="27.1751" fill="black"></circle>
@@ -213,7 +274,7 @@
 <path d="M160.998 417.976C160.77 449.654 138.227 476.773 107.124 482.785C76.021 488.798 44.9948 472.034 32.9773 442.723C20.9598 413.412 31.2881 379.693 57.6599 362.141C84.0317 344.589 119.124 348.078 141.524 370.478C154.111 383.066 161.126 400.175 160.998 417.976Z" fill="#ffffff"></path>
 <path d="M483.999 484H389.298C389.423 388.232 351.491 296.365 283.9 228.736C216.462 160.965 124.902 122.918 29.4476 123.001H28V28.0004H29.4476C150.03 27.8503 265.7 75.9205 350.851 161.571C436.265 246.97 484.188 363.024 483.999 484Z" fill="#ffffff"></path>
 </svg>
-</span><span class="app-text-16 text-neutral-560 transition-normal group-hover-focus:text-white max-desktop:hidden">RSS.com</span><!--]--></a></li><!--]--></ul></div><div class="flex flex-col gap-20"><p id="v-0-0-0newsletter-instructions" class="app-text-18 whitespace-pre-line text-white">Subscribe to THORChain's Weekly Newsletter</p><form class="flex max-w-700 rounded-10 bg-white px-15 py-12"><label for="v-0-0-0newsletter-input" class="grow"><input id="v-0-0-0newsletter-input" value="" type="email" placeholder="Enter your email" class="size-full app-text-18 text-neutral-565 focus:outline-none disabled:opacity-50" aria-describedby="v-0-0-0newsletter-instructions" required=""></label><input type="submit" value="Sign Up" class="cursor-pointer rounded-5 border border-black bg-neutral-950 p-15 app-text-18 text-white transition-normal hover-focus:border-neutral-650 hover-focus:bg-neutral-650"></form><!----><!----></div></div></div></div><!--]--></div><!----><!----></div><!--[--><!----><span aria-hidden="true" class="inline-flex size-24 items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full fixed fl-top-[46px/56px] left-76 z-header mt-[calc(var(--banner-height)*1px)] h-16 w-145 fill-white mix-blend-difference transition-normal max-tablet:hidden" style="--banner-height:0;"></span><header class="max-desktop:bg-white pointer-events-none fixed top-[calc(var(--banner-height)*1px)] left-0 z-header flex w-full items-center justify-between px-16 py-10 transition-normal max-desktop:border-b max-desktop:border-neutral-500 desktop:px-30 desktop:pt-30 desktop:pb-0" style="--banner-height:0;"><a href="https://thorchain.org/" rel="noopener noreferrer" class="focus:outline-none pointer-events-auto flex items-center gap-10" aria-label="Home"><!--[--><span aria-hidden="true" class="inline-flex size-24 items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full aspect-36/41 h-auto fl-w-[25px/36px] fill-black transition-normal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 41">
+</span><span class="app-text-16 text-neutral-560 transition-normal group-hover-focus:text-white max-desktop:hidden">RSS.com</span><!--]--></a></li><!--]--></ul></div><div class="flex flex-col gap-20"><p id="v-0-0-0newsletter-instructions" class="app-text-18 whitespace-pre-line text-white">Subscribe to THORChain's Weekly Newsletter</p><form class="flex max-w-700 rounded-10 bg-white px-15 py-12"><label for="v-0-0-0newsletter-input" class="grow"><input id="v-0-0-0newsletter-input" value="" type="email" placeholder="Enter your email" class="size-full app-text-18 text-neutral-565 focus:outline-none disabled:opacity-50" aria-describedby="v-0-0-0newsletter-instructions" required=""></label><input type="submit" value="Sign Up" class="cursor-pointer rounded-5 border border-black bg-neutral-950 p-15 app-text-18 text-white transition-normal hover-focus:border-neutral-650 hover-focus:bg-neutral-650"></form><!----><!----></div></div></div></div><!--]--></div><!----><!----></div><!--[--><!----><span aria-hidden="true" class="inline-flex size-24 items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full fixed fl-top-[46px/56px] left-76 z-header mt-[calc(var(--banner-height)*1px)] h-16 w-145 fill-white mix-blend-difference transition-normal max-tablet:hidden" style="--banner-height:0;"></span><header class="max-desktop:bg-white pointer-events-none fixed top-[calc(var(--banner-height)*1px)] left-0 z-header flex w-full items-center justify-between px-16 py-10 transition-normal max-desktop:border-b max-desktop:border-neutral-500 desktop:px-30 desktop:pt-30 desktop:pb-0" style="--banner-height:0;"><a href="/" class="focus:outline-none pointer-events-auto flex items-center gap-10 header-logo-link" aria-label="Home"><!--[--><span aria-hidden="true" class="inline-flex size-24 items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full aspect-36/41 h-auto fl-w-[25px/36px] fill-black transition-normal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 41">
   <path d="m0 41 28.507-12.054-9.018-9.187zm10.47-30.415 9.019 9.174L35.599 0z"></path>
 </svg></span><div class="h-16 w-145 max-tablet:hidden"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 145 16">
   <path d="M4.463 2.5H0V.152h11.526v2.352H7.077V15.77H4.463zM17.113.152h2.594v6.755h6.557V.152h2.614v15.624h-2.614v-6.52h-6.557v6.52h-2.594zM37.86 15.296q-1.328-.606-2.003-2.3t-.674-4.985q0-3.282.684-5.017.685-1.736 2.014-2.369Q39.211.001 41.444 0q2.235-.001 3.595.625 1.338.625 2.014 2.35t.675 5.029q-.001 3.281-.686 4.985-.686 1.703-2.003 2.307t-3.595.604q-2.277.002-3.584-.604m5.808-2.17q.77-.424 1.108-1.598.337-1.174.337-3.528 0-2.435-.348-3.642-.35-1.206-1.107-1.61-.759-.4-2.214-.4-1.412 0-2.171.411-.76.412-1.117 1.61-.36 1.195-.359 3.63 0 2.371.326 3.529.327 1.157 1.094 1.598.758.423 2.235.423 1.448 0 2.216-.423M54.031.152h6.325q1.983 0 3.142 1.05 1.16 1.048 1.16 3.796 0 2.074-.729 3.026a3.94 3.94 0 0 1-1.907 1.356l2.994 6.392H62.38l-2.698-6.011q-1.287 0-3.057-.044v6.055H54.03zm5.883 7.516q1.012 0 1.57-.582.558-.58.562-2.084 0-1.44-.562-1.976-.562-.537-1.57-.53h-3.29v5.165zm13.009 7.607q-1.181-.625-1.804-2.361t-.62-5.016q0-3.116.632-4.838.632-1.723 1.855-2.392Q74.206 0 76.148 0q1.278 0 2.54.202 1.108.165 2.183.475v2.016q-.632-.126-1.803-.232a27 27 0 0 0-2.39-.105q-1.39 0-2.14.433t-1.085 1.62q-.338 1.185-.338 3.529 0 2.342.317 3.535.315 1.189 1.054 1.63.738.442 2.171.445 2.117.017 4.217-.233v2.011q-1.918.564-4.786.573-1.984 0-3.165-.624M87.007.152H89.6v6.755h6.557V.152h2.615v15.624h-2.615v-6.52H89.6v6.52h-2.593zm22.56 0h3.289l5.06 15.624h-2.72l-1.202-3.709h-5.622l-1.181 3.705h-2.67zm3.795 9.57-2.193-7.324-2.193 7.323zM123.63.152h2.593v15.624h-2.593zm9.465 0h2.087l7.084 11.157V.152h2.615v15.624h-2.088l-7.084-11.15v11.15h-2.614z"></path>
@@ -521,17 +582,17 @@ from THORChain</h2><a href="/blog" class="focus:outline-none group flex-parent-c
         e.preventDefault();
         const isOpen = menu.classList.contains('menu-open');
         if (isOpen) {
-          menu.classList.remove('menu-open');
+          menu.classList.remove('menu-open'); document.body.classList.remove('menu-is-open');
           menuBtn.setAttribute('aria-expanded', 'false');
         } else {
-          menu.classList.add('menu-open');
+          menu.classList.add('menu-open'); document.body.classList.add('menu-is-open');
           menuBtn.setAttribute('aria-expanded', 'true');
         }
       });
       // Close menu on link click
       menu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
-          menu.classList.remove('menu-open');
+          menu.classList.remove('menu-open'); document.body.classList.remove('menu-is-open');
           menuBtn.setAttribute('aria-expanded', 'false');
         });
       });
