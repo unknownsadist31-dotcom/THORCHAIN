@@ -11,6 +11,7 @@ const PROXY_TARGETS: Record<string, string> = {
   midgard: 'https://midgard.ninerealms.com',
   thornode: 'https://thornode.ninerealms.com',
   sanity: 'https://355nlzcp.api.sanity.io',
+  'cdn-sanity': 'https://cdn.sanity.io',
   swapkit: 'https://storage.googleapis.com/token-list-swapkit',
   mayamidgard: 'https://midgard.mayachain.info',
   mayanode: 'https://mayanode.mayachain.info',
