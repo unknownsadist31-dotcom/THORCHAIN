@@ -113,6 +113,24 @@
 </style>
 
 <style id="thorchain-custom-fixes">
+  /* Ensure menu is STRICTLY hidden and closed by default upon page load / refresh */
+  #menu {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 0.25s ease, visibility 0.25s ease !important;
+  }
+  
+  /* Menu ONLY appears when explicitly opened */
+  #menu.menu-open,
+  body.menu-is-open #menu {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
   /* Header logo styling */
   .header-logo-link {
     color: #000000 !important;
@@ -137,7 +155,17 @@
   body.menu-is-open .header-logo-link .aspect-36\/41 svg path {
     fill: #33FF99 !important;
   }
-  body.menu-is-open button[aria-controls="menu"] span {
+  
+  /* Hamburger to X icon transformation when menu is open */
+  body.menu-is-open button[aria-controls="menu"] {
+    background-color: #1a1a1a !important;
+  }
+  body.menu-is-open button[aria-controls="menu"] span:first-child {
+    transform: translate(-50%, -50%) rotate(45deg) !important;
+    background-color: #ffffff !important;
+  }
+  body.menu-is-open button[aria-controls="menu"] span:last-child {
+    transform: translate(-50%, -50%) rotate(-45deg) !important;
     background-color: #ffffff !important;
   }
   
@@ -573,57 +601,89 @@ from THORChain</h2><a href="/blog" class="focus:outline-none group flex-parent-c
 </svg>
 </span><span class="app-text-16 text-neutral-560 transition-normal group-hover-focus:text-white max-desktop:hidden">RSS.com</span><!--]--></a></li><!--]--></ul></div></div><!----></div><span aria-hidden="true" class="inline-flex size-24 items-center justify-center overflow-visible text-0 [&amp;>svg]:size-full fl-mt-[60px/130px] aspect-1965/216 h-auto w-full fill-neutral-800"></span></footer></div></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{useCanonicalBlogLinks:true,metricsUrl:"https://raynalytics.net/api/thorchain-dashboard-lefruitsstudio",scripts:{googleTagManager:{id:"G-VZ0FQ1WC7G"}},"nuxt-scripts":{version:"",prefix:"/_scripts",defaultScriptOptions:{trigger:"onNuxtReady"},googleStaticMapsProxy:"",endpoints:{}},breakpoints:{breakpoints:{mobile:576,tablet:768,desktop:992,large:1200,xlarge:1440,xxlarge:1600},heightBreakpoints:{small:500,medium:700,large:900},defaultWindowWidth:1440,defaultWindowHeight:920},device:{defaultUserAgent:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.39 Safari/537.36"},intersectionObserver:{activeClass:"--in-view",once:true,offset:0,threshold:0},sanity:{additionalClients:{},apiVersion:"2025-12-31",dataset:"production",disableSmartCdn:false,perspective:"raw",projectId:"355nlzcp",queryEndpoint:"",stega:{},token:"",useCdn:true,withCredentials:false},"seo-utils":{canonicalQueryWhitelist:["page","sort","filter","search","q","category","tag"],canonicalLowercase:true}},app:{baseURL:"/",buildId:"28ead8f3-ff7f-4993-a3a3-d66372a57514",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/_payload.json?28ead8f3-ff7f-4993-a3a3-d66372a57514">[{"state":1,"once":16,"_errors":17,"serverRendered":12,"path":19,"pinia":20,"prerenderedAt":25},["Reactive",2],{"$s$l_mTUefzEm":3,"$snuxt-seo-utils:routeRules":4,"$ssanity-preview-environment":5,"$ssite-config":6},"Mozilla\u002F5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit\u002F537.36 (KHTML, like Gecko) Chrome\u002F64.0.3282.39 Safari\u002F537.36",{"head":-1,"seoMeta":-1},"checking",{"_priority":7,"env":11,"indexable":12,"name":13,"trailingSlash":14,"url":15},{"name":8,"env":9,"url":10,"trailingSlash":8,"indexable":10},-3,-15,0,"production",true,"THORChain",false,"https:\u002F\u002Fthorchain.org",["Set"],["ShallowReactive",18],{"sanity-0vx860qANOB8CccsDGE2gHIvftsFnrZIEPQEzBiaaYg":-1,"sanity-M3ecfVdT1haLVC6W5tbM4X39CNYacavIuqPq8YoIHrc":-1,"sanity-XcGK52VVxAwAemsxRaMwIicdA1Et_xiU0L2dNE_G4PM":-1,"metrics":-1},"\u002F",["Reactive",21],{"menu":22},{"isOpen":23},["EmptyRef",24],"false",1786744541924]</script>
 <script id="homepage-interactive-script">
-  document.addEventListener('DOMContentLoaded', () => {
-    // Menu toggle
-    const menuBtn = document.querySelector('button[aria-controls="menu"]');
-    const menu = document.getElementById('menu');
-    if (menuBtn && menu) {
-      menuBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const isOpen = menu.classList.contains('menu-open');
-        if (isOpen) {
-          menu.classList.remove('menu-open'); document.body.classList.remove('menu-is-open');
-          menuBtn.setAttribute('aria-expanded', 'false');
-        } else {
-          menu.classList.add('menu-open'); document.body.classList.add('menu-is-open');
-          menuBtn.setAttribute('aria-expanded', 'true');
-        }
-      });
-      // Close menu on link click
-      menu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          menu.classList.remove('menu-open'); document.body.classList.remove('menu-is-open');
-          menuBtn.setAttribute('aria-expanded', 'false');
+  (function() {
+    function initMenu() {
+      const menuBtn = document.querySelector('button[aria-controls="menu"]');
+      const menu = document.getElementById('menu');
+      
+      // Force initial closed state
+      if (menu) {
+        menu.classList.remove('menu-open');
+      }
+      document.body.classList.remove('menu-is-open');
+      if (menuBtn) {
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+
+      if (menuBtn && menu) {
+        // Remove existing listener clones
+        const newBtn = menuBtn.cloneNode(true);
+        menuBtn.parentNode.replaceChild(newBtn, menuBtn);
+
+        newBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const isOpen = menu.classList.contains('menu-open') || document.body.classList.contains('menu-is-open');
+          if (isOpen) {
+            menu.classList.remove('menu-open');
+            document.body.classList.remove('menu-is-open');
+            newBtn.setAttribute('aria-expanded', 'false');
+          } else {
+            menu.classList.add('menu-open');
+            document.body.classList.add('menu-is-open');
+            newBtn.setAttribute('aria-expanded', 'true');
+          }
         });
+
+        // Close menu on link click
+        menu.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            menu.classList.remove('menu-open');
+            document.body.classList.remove('menu-is-open');
+            newBtn.setAttribute('aria-expanded', 'false');
+          } );
+        });
+      }
+
+      // FAQ Accordion
+      document.querySelectorAll('#faq button').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const content = btn.nextElementSibling;
+          if (content) {
+            const isOpened = content.classList.contains('faq-open');
+            document.querySelectorAll('#faq .faq-open').forEach(function(el) { el.classList.remove('faq-open'); });
+            if (!isOpened) {
+              content.classList.add('faq-open');
+            }
+          }
+        });
+      });
+
+      // Ensure all images are loaded
+      document.querySelectorAll('img[data-src]').forEach(function(img) {
+        if (!img.src || img.src === window.location.href) {
+          img.src = img.getAttribute('data-src');
+        }
+        if (img.getAttribute('data-srcset') && !img.srcset) {
+          img.srcset = img.getAttribute('data-srcset');
+        }
+        img.classList.remove('opacity-0');
+        img.classList.add('opacity-100');
       });
     }
 
-    // FAQ Accordion
-    document.querySelectorAll('#faq button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const content = btn.nextElementSibling;
-        if (content) {
-          const isOpened = content.classList.contains('faq-open');
-          // Close all FAQ items
-          document.querySelectorAll('#faq .faq-open').forEach(el => el.classList.remove('faq-open'));
-          if (!isOpened) {
-            content.classList.add('faq-open');
-          }
-        }
-      });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMenu);
+    } else {
+      initMenu();
+    }
+    window.addEventListener('pageshow', function() {
+      const menu = document.getElementById('menu');
+      const menuBtn = document.querySelector('button[aria-controls="menu"]');
+      if (menu) menu.classList.remove('menu-open');
+      document.body.classList.remove('menu-is-open');
+      if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
     });
-
-    // Ensure all images are loaded
-    document.querySelectorAll('img[data-src]').forEach(img => {
-      if (!img.src || img.src === window.location.href) {
-        img.src = img.getAttribute('data-src');
-      }
-      if (img.getAttribute('data-srcset') && !img.srcset) {
-        img.srcset = img.getAttribute('data-srcset');
-      }
-      img.classList.remove('opacity-0');
-      img.classList.add('opacity-100');
-    });
-  });
+  })();
 </script>
 </body></html>
